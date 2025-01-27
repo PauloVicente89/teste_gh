@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Activities {
+  id  String @id @default(uuid())
+  name  String
+  date  DateTime @db.Date
+  inicialized_at  DateTime @db.Time()
+  finalized_at  DateTime @db.Time()
+
+  @@map("activities")
+}
