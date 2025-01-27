@@ -1,21 +1,28 @@
-import { ApiProperty } from "@nestjs/swagger/dist/decorators/api-property.decorator";
-import { Activities } from "@prisma/client";
+import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import { Activities } from '@prisma/client';
+import { Type } from 'class-transformer';
+import { IsDate, IsNotEmpty, IsString, Matches } from 'class-validator';
 
-export class CreateActivityDto implements
-  Omit<
-    Activities,
-    | 'id'
-  >
+export class CreateActivityDto 
+  implements
+    Omit<Activities, 'id' >
 {
-    @ApiProperty({ required: true, example: "Consulta médica"})
-    name: string;
+  @ApiProperty({ required: true, example: 'Consulta médica' })
+  @IsNotEmpty({ message: "O campo 'Nome' é obrigatório" })
+  name: string;
 
-    @ApiProperty({ required: true, example: "2025-02-15"})
-    date: Date;
-    
-    @ApiProperty({ required: true, example: "15:00"})
-    inicialized_at: Date;
+  @ApiProperty({ required: true, example: '2025-02-15' })
+  @IsNotEmpty({ message: "O campo 'Data' é obrigatório" })
+  @Type(() => Date)
+  date: Date;
 
-    @ApiProperty({ required: true, example: "15:45"})
-    finalized_at: Date;
+  @ApiProperty({ required: true, example: 'HH:mm:ss' })
+  @IsNotEmpty({ message: "O campo 'Hora de inicio' é obrigatório" })
+  @Matches(/^\d{2}:\d{2}:\d{2}$/, { message: "O campo 'Hora de inicio' deve estar no formato HH:mm:ss" })
+  inicialized_at: string;
+
+  @ApiProperty({ required: true, example: 'HH:mm:ss' })
+  @IsNotEmpty({ message: "O campo 'Hora de término' é obrigatório" })
+  @Matches(/^\d{2}:\d{2}:\d{2}$/, { message: "O campo 'Hora de término' deve estar no formato HH:mm:ss" })
+  finalized_at: string;
 }

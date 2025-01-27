@@ -3,9 +3,9 @@ import { Activities } from '@prisma/client';
 
 export class ActivityEntity implements Activities {
   constructor(partial: Partial<ActivityEntity>) {
-    Object.assign(this, partial)
+    Object.assign(this, partial);
   }
-  
+
   @ApiProperty()
   id: string;
 
@@ -16,8 +16,8 @@ export class ActivityEntity implements Activities {
   date: Date;
 
   @ApiProperty()
-  inicialized_at: Date;
+  inicialized_at: string;
 
   @ApiProperty()
-  finalized_at: Date;
+  finalized_at: string;
 }

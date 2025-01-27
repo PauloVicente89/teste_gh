@@ -7,6 +7,9 @@ import { ActivityRepository } from './repositories/activity.repository';
 @Module({
   imports: [],
   controllers: [ActivityController],
-  providers: [ActivityService, { provide: ActivityRepository, useClass: PrismaActivityRepository }],
+  providers: [
+    ActivityService,
+    { provide: ActivityRepository, useClass: PrismaActivityRepository },
+  ],
 })
 export class ActivityModule {}

@@ -11,8 +11,8 @@ model Activities {
   id  String @id @default(uuid())
   name  String
   date  DateTime @db.Date
-  inicialized_at  DateTime @db.Time()
-  finalized_at  DateTime @db.Time()
+  inicialized_at  String
+  finalized_at  String
 
   @@map("activities")
 }

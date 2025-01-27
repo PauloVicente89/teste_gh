@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { Activities, PrismaClient } from "@prisma/client";
-import { FilterProps, ICriteria } from "src/utils/types/filters.props";
-import { CreateActivityDto } from "../dtos/create-activity.dto";
-import { UpdateActivityDto } from "../dtos/update-activity.dto";
-import { ActivityRepository } from "../repositories/activity.repository";
+import { Injectable } from '@nestjs/common';
+import { Activities, PrismaClient } from '@prisma/client';
+import { FilterProps, ICriteria } from 'src/utils/types/filters.props';
+import { CreateActivityDto } from '../dtos/create-activity.dto';
+import { UpdateActivityDto } from '../dtos/update-activity.dto';
+import { ActivityRepository } from '../repositories/activity.repository';
 
 interface IFilters {
-  name?: any
+  name?: any;
 }
 
 @Injectable()
@@ -18,7 +18,7 @@ export class PrismaActivityRepository implements ActivityRepository {
   }
 
   async create(body: CreateActivityDto): Promise<Activities> {
-    return await this.prisma.activities.create({ data: body })
+    return await this.prisma.activities.create({ data: body });
   }
 
   async findAll({ criteria, pagination }: FilterProps): Promise<Activities[]> {
@@ -28,8 +28,8 @@ export class PrismaActivityRepository implements ActivityRepository {
 
     const where: IFilters = {};
 
-    if(criteria?.name) {
-      where.name = { contains: criteria?.name, mode: 'insensitive' }
+    if (criteria?.name) {
+      where.name = { contains: criteria?.name, mode: 'insensitive' };
     }
 
     return await this.prisma.activities.findMany({
@@ -37,21 +37,21 @@ export class PrismaActivityRepository implements ActivityRepository {
       take: +perPage,
       skip: +skip,
       orderBy: {
-        date: 'asc'
-      }
-    })
+        date: 'asc',
+      },
+    });
   }
 
   async update(id: string, body: UpdateActivityDto): Promise<Activities> {
     return await this.prisma.activities.update({
       where: { id },
-      data: body
-    })
+      data: body,
+    });
   }
 
   async delete(id: string): Promise<void> {
     await this.prisma.activities.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 }
