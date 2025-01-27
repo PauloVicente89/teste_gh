@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 import { Activities } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { IsDate, IsNotEmpty, Matches } from 'class-validator';
 
 export class CreateActivityDto 
   implements
@@ -14,6 +14,7 @@ export class CreateActivityDto
   @ApiProperty({ required: true, example: '2025-02-15' })
   @IsNotEmpty({ message: "O campo 'Data' é obrigatório" })
   @Type(() => Date)
+  @IsDate({ message: "O campo 'Data' deve seguir o formato 'yyyy-mm-dd'" })
   date: Date;
 
   @ApiProperty({ required: true, example: 'HH:mm:ss' })

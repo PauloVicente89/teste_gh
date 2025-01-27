@@ -25,7 +25,6 @@ export class PrismaActivityRepository implements ActivityRepository {
     const page = pagination?.page || 1;
     const perPage = pagination?.perPage || 20;
     const skip = (page - 1) * perPage;
-
     const where: IFilters = {};
 
     if (criteria?.name) {
@@ -39,6 +38,12 @@ export class PrismaActivityRepository implements ActivityRepository {
       orderBy: {
         date: 'asc',
       },
+    });
+  }
+
+  async findBy(criteria: ICriteria): Promise<Activities | null> {
+    return await this.prisma.activities.findFirst({
+      where: criteria,
     });
   }
 

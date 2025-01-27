@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -7,10 +6,9 @@ import {
   Param,
   Patch,
   Post,
-  Query,
+  Query
 } from '@nestjs/common';
 import { Activities } from '@prisma/client';
-import { FilterProps } from 'src/utils/types/filters.props';
 import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dtos/create-activity.dto';
 import { UpdateActivityDto } from './dtos/update-activity.dto';
@@ -26,31 +24,39 @@ export class ActivityController {
   }
 
   @Get()
-  async findAll(
-    @Query() filters: FilterProps,
-  ): Promise<{ activities: Activities[]; count: number }> {
-    const query: Activities[] = await this.activityService.findAll({
-      pagination: {
-        page: filters?.pagination?.page || 1,
-        perPage: filters?.pagination?.perPage || 10,
-      },
-      criteria: filters?.criteria,
-    });
-    const count: number = query.length;
-    const activities = query.map(
-      (activity: Activities) => new ActivityEntity(activity),
-    );
-    return { activities, count };
+  async findAll(@Query() filters: any): Promise<{ activities: Activities[]; count: number }> {
+    try {
+      const query: Activities[] = await this.activityService.findAll({
+        pagination: {
+          page: filters?.page || 1,
+          perPage: filters?.perPage || 10,
+        },
+        criteria: filters,
+      });
+      const count: number = query.length;
+      const activities = query.map((activity: Activities) => new ActivityEntity(activity));
+      return { activities, count };
+    } catch (error) {
+      throw(error)
+    }
   }
 
   @Patch(':id')
   async update(@Body() body: UpdateActivityDto, @Param('id') id: string) {
-    const query = await this.activityService.update(id, body);
-    return new ActivityEntity(query);
+    try {
+      const query = await this.activityService.update(id, body);
+      return new ActivityEntity(query);
+    } catch (error) {
+      throw(error)
+    }
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
-    await this.activityService.delete(id);
+    try {
+      await this.activityService.delete(id);
+    } catch (error) {
+      throw(error)
+    }
   }
 }

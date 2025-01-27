@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { FilterProps } from 'src/utils/types/filters.props';
-import { ActivityRepository } from './repositories/activity.repository';
-import { CreateActivityDto } from './dtos/create-activity.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Activities } from '@prisma/client';
+import { FilterProps } from 'src/utils/types/filters.props';
+import { CreateActivityDto } from './dtos/create-activity.dto';
 import { UpdateActivityDto } from './dtos/update-activity.dto';
-import * as moment from 'moment';
+import { ActivityRepository } from './repositories/activity.repository';
 
 @Injectable()
 export class ActivityService {
@@ -19,10 +18,14 @@ export class ActivityService {
   }
 
   async update(id: string, body: UpdateActivityDto): Promise<Activities> {
+    const query = await this.activityRepository.findBy({ id })
+    if(!query) throw new NotFoundException("Registro não encontrado.")
     return await this.activityRepository.update(id, body);
   }
 
   async delete(id: string): Promise<void> {
+    const query = await this.activityRepository.findBy({ id })
+    if(!query) throw new NotFoundException("Registro não encontrado.")
     return await this.activityRepository.delete(id);
   }
 }

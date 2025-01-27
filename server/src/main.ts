@@ -15,7 +15,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
   .setTitle('API GH Branding - DOCS')
-  .setDescription('Documentação Oficial')
+  .setDescription('Documentação para teste técnico')
   .setVersion('1.0')
   .build();
 
