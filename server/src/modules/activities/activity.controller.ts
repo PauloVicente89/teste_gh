@@ -26,18 +26,9 @@ export class ActivityController {
   @Get()
   async findAll(@Query() filters: any): Promise<{ activities: Activities[]; count: number }> {
     try {
-      const query: Activities[] = await this.activityService.findAll({
-        pagination: {
-          page: filters?.page || 1,
-          perPage: filters?.perPage || 10,
-        },
-        criteria: filters,
-      });
-      const count: number = query.length;
-      const activities = query.map((activity: Activities) => new ActivityEntity(activity));
-      return { activities, count };
-    } catch (error) {
-      throw(error)
+      return await this.activityService.findAll(filters);
+    } catch {
+      throw Error("Erro ao consultar atividades")
     }
   }
 

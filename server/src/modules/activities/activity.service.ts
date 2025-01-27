@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Activities } from '@prisma/client';
-import { FilterProps } from 'src/utils/types/filters.props';
 import { CreateActivityDto } from './dtos/create-activity.dto';
 import { UpdateActivityDto } from './dtos/update-activity.dto';
+import { ActivityEntity } from './entities/activity.entity';
 import { ActivityRepository } from './repositories/activity.repository';
 
 @Injectable()
@@ -13,8 +13,17 @@ export class ActivityService {
     return await this.activityRepository.create(body);
   }
 
-  async findAll({ criteria, pagination }: FilterProps): Promise<Activities[]> {
-    return await this.activityRepository.findAll({ criteria, pagination });
+  async findAll(filters: any): Promise<{ activities: Activities[]; count: number }> {
+    const query: Activities[] = await this.activityRepository.findAll({
+      pagination: {
+        page: filters?.page || 1,
+        perPage: filters?.perPage || 10,
+      },
+      criteria: filters,
+    });
+    const count: number = query.length;
+    const activities = query.map((activity: Activities) => new ActivityEntity(activity));
+    return { activities, count };
   }
 
   async update(id: string, body: UpdateActivityDto): Promise<Activities> {
