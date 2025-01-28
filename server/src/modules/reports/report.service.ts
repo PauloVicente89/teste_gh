@@ -5,6 +5,7 @@ import { UpdateReportDto } from './dtos/update-report.dto';
 import { ReportEntity } from './entities/report.entity';
 import { ReportRepository } from './repositories/report.repository';
 import { ICriteria } from 'src/utils/types/filters.props';
+import { calculateTimeSum } from 'src/utils/calculate-hours';
 
 @Injectable()
 export class ReportService {
@@ -31,6 +32,15 @@ export class ReportService {
     const query = await this.reportRepository.findBy(criteria)
     if(!query) throw new NotFoundException("Registro não encontrado.")
     return query
+  }
+
+  async handlingReportCreation(body: CreateReportDto): Promise<Reports | null> {
+    const query = await this.reportRepository.findBy({ date: body.date })
+    if(!query) {
+      return await this.reportRepository.create(body)
+    }
+    const hours = calculateTimeSum(query.hours, body.hours)
+    return await this.reportRepository.update(query.id, {hours: hours})
   }
 
   async update(id: string, body: UpdateReportDto): Promise<Reports> {

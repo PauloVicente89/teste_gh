@@ -4,12 +4,22 @@ import { CreateActivityDto } from './dtos/create-activity.dto';
 import { UpdateActivityDto } from './dtos/update-activity.dto';
 import { ActivityEntity } from './entities/activity.entity';
 import { ActivityRepository } from './repositories/activity.repository';
+import { ReportService } from '../reports/report.service';
+import { calculateTimeDifference } from 'src/utils/calculate-hours';
 
 @Injectable()
 export class ActivityService {
-  constructor(private readonly activityRepository: ActivityRepository) {}
+  constructor(
+    private readonly activityRepository: ActivityRepository,
+    private readonly reportService: ReportService,
+  ) {}
 
   async create(body: CreateActivityDto): Promise<Activities> {
+    const hours = calculateTimeDifference(body.inicialized_at, body.finalized_at)
+    await this.reportService.handlingReportCreation({
+      date: body.date,
+      hours: hours
+    })
     return await this.activityRepository.create(body);
   }
 

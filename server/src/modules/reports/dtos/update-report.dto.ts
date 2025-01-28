@@ -8,12 +8,12 @@ export class UpdateReportDto
     Omit<Reports, 'id' | 'date' | 'hours' >
 {
   @ApiProperty({ example: '2025-02-15' })
-  @IsOptional()
   @Type(() => Date)
   @IsDate({ message: "O campo 'Data' deve seguir o formato 'yyyy-mm-dd'" })
-  date: Date;
+  @IsOptional()
+  date?: Date;
 
   @ApiProperty({ example: 'HH:mm:ss' })
   @IsOptional()
-  hours: string;
+  hours?: string;
 }
