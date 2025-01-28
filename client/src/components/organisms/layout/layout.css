@@ -1,3 +1,9 @@
 #layout {
-    width: 100%;
+  width: 100%;
+  display: flex;
+}
+
+#layoutContent {
+  margin: 30px;
+  width: 100%;
 }

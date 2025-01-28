@@ -7,11 +7,13 @@ export class ReportController {
   constructor(private readonly reportService: ReportService) {}
 
   @Get()
-  async findAll(@Query() filters: any): Promise<{ data: Reports[]; count: number }> {
+  async findAll(
+    @Query() filters: any,
+  ): Promise<{ data: Reports[]; count: number }> {
     try {
       return await this.reportService.findAll(filters);
     } catch {
-      throw Error("Erro ao consultar o relatório")
+      throw Error('Erro ao consultar o relatório');
     }
   }
 }

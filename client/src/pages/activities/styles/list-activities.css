@@ -1,0 +1,65 @@
+#activities {
+  display: flex;
+  gap: 100px;
+  width: 100%;
+  align-items: center;
+}
+#listActivities {
+  width: 50%;
+}
+.divisor {
+  width: 3px;
+  background: rgb(0, 0, 0, 0.2);
+  height: 600px;
+}
+
+.activitiesTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.activitiesTable th,
+.activitiesTable td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.activitiesTable th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.activitiesTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.activitiesTable tr:hover {
+  background-color: #e9e9e9;
+  cursor: pointer;
+}
+
+.tableRow {
+  transition: background-color 0.2s;
+}
+
+#activitiesFilters {
+  margin-top: 25px;
+}
+#activitiesFilters input {
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  font-size: 16px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+#activitiesFilters button {
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  font-size: 16px;
+  padding: 3px 6px;
+  border-radius: 4px;
+}

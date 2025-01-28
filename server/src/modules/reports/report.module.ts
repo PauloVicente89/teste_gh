@@ -6,7 +6,8 @@ import { ReportRepository } from './repositories/report.repository';
 
 @Module({
   controllers: [ReportController],
-  providers: [ReportService,
+  providers: [
+    ReportService,
     { provide: ReportRepository, useClass: PrismaReportRepository },
   ],
 })

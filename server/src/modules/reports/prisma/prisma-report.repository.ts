@@ -42,5 +42,4 @@ export class PrismaReportRepository implements ReportRepository {
       data: body,
     });
   }
-
 }

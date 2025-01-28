@@ -6,7 +6,7 @@ import {
   Param,
   Patch,
   Post,
-  Query
+  Query,
 } from '@nestjs/common';
 import { Activities } from '@prisma/client';
 import { ActivityService } from './activity.service';
@@ -24,11 +24,13 @@ export class ActivityController {
   }
 
   @Get()
-  async findAll(@Query() filters: any): Promise<{ data: Activities[]; count: number }> {
+  async findAll(
+    @Query() filters: any,
+  ): Promise<{ data: Activities[]; count: number }> {
     try {
       return await this.activityService.findAll(filters);
     } catch {
-      throw Error("Erro ao consultar atividades")
+      throw Error('Erro ao consultar atividades');
     }
   }
 
@@ -38,7 +40,7 @@ export class ActivityController {
       const query = await this.activityService.update(id, body);
       return new ActivityEntity(query);
     } catch (error) {
-      throw(error)
+      throw error;
     }
   }
 
@@ -47,7 +49,7 @@ export class ActivityController {
     try {
       await this.activityService.delete(id);
     } catch (error) {
-      throw(error)
+      throw error;
     }
   }
 }

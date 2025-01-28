@@ -1,6 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../components/organisms/layout/layout";
-import ListActivities from "../pages/activities/list-activities";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from '../components/organisms/layout/layout';
+import ListReports from '../pages/reports/list-reports';
+import ListActivities from '../pages/activities/activities';
 
 export function AppRoutes() {
   return (
@@ -9,6 +10,7 @@ export function AppRoutes() {
         <Routes>
           <Route path="/" element={<ListActivities />} />
           <Route path="/atividade/listar" element={<ListActivities />} />
+          <Route path="/relatorio/listar" element={<ListReports />} />
         </Routes>
       </Layout>
     </BrowserRouter>

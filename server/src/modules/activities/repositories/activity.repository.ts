@@ -9,6 +9,7 @@ export abstract class ActivityRepository {
     pagination,
   }: FilterProps): Promise<Activities[]>;
   abstract findBy(criteria: ICriteria): Promise<Activities | null>;
+  abstract findTotalItems(): Promise<number>;
   abstract create(body: CreateActivityDto): Promise<Activities>;
   abstract update(id: string, body: UpdateActivityDto): Promise<Activities>;
   abstract delete(id: string): Promise<void>;

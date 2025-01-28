@@ -36,7 +36,7 @@ export class PrismaActivityRepository implements ActivityRepository {
       take: +perPage,
       skip: +skip,
       orderBy: {
-        date: 'asc',
+        date: 'desc',
       },
     });
   }
@@ -45,6 +45,10 @@ export class PrismaActivityRepository implements ActivityRepository {
     return await this.prisma.activities.findFirst({
       where: criteria,
     });
+  }
+
+  async findTotalItems(): Promise<number> {
+    return await this.prisma.activities.count();
   }
 
   async update(id: string, body: UpdateActivityDto): Promise<Activities> {

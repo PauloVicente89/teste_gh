@@ -9,10 +9,10 @@ import { calculateTimeSum } from 'src/utils/calculate-hours';
 
 @Injectable()
 export class ReportService {
-  constructor(private readonly reportRepository: ReportRepository){}
+  constructor(private readonly reportRepository: ReportRepository) {}
 
   async create(body: CreateReportDto): Promise<Reports> {
-    return await this.reportRepository.create(body)
+    return await this.reportRepository.create(body);
   }
 
   async findAll(filters: any): Promise<{ data: Reports[]; count: number }> {
@@ -29,23 +29,23 @@ export class ReportService {
   }
 
   async findBy(criteria: ICriteria): Promise<Reports | null> {
-    const query = await this.reportRepository.findBy(criteria)
-    if(!query) throw new NotFoundException("Registro não encontrado.")
-    return query
+    const query = await this.reportRepository.findBy(criteria);
+    if (!query) throw new NotFoundException('Registro não encontrado.');
+    return query;
   }
 
   async handlingReportCreation(body: CreateReportDto): Promise<Reports | null> {
-    const query = await this.reportRepository.findBy({ date: body.date })
-    if(!query) {
-      return await this.reportRepository.create(body)
+    const query = await this.reportRepository.findBy({ date: body.date });
+    if (!query) {
+      return await this.reportRepository.create(body);
     }
-    const hours = calculateTimeSum(query.hours, body.hours)
-    return await this.reportRepository.update(query.id, {hours: hours})
+    const hours = calculateTimeSum(query.hours, body.hours);
+    return await this.reportRepository.update(query.id, { hours: hours });
   }
 
   async update(id: string, body: UpdateReportDto): Promise<Reports> {
-    const query = await this.reportRepository.findBy({ id })
-    if(!query) throw new NotFoundException("Registro não encontrado.")
+    const query = await this.reportRepository.findBy({ id });
+    if (!query) throw new NotFoundException('Registro não encontrado.');
     return await this.reportRepository.update(id, body);
   }
 }

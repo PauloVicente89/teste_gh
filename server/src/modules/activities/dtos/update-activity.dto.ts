@@ -19,11 +19,15 @@ export class UpdateActivityDto
 
   @ApiProperty({ example: 'HH:mm:ss' })
   @IsOptional()
-  @Matches(/^\d{2}:\d{2}:\d{2}$/, { message: "O campo 'Hora de inicio' deve estar no formato 'HH:mm:ss'" })
+  @Matches(/^\d{2}:\d{2}:\d{2}$/, {
+    message: "O campo 'Hora de inicio' deve estar no formato 'HH:mm:ss'",
+  })
   inicialized_at: string;
 
   @ApiProperty({ example: 'HH:mm:ss' })
   @IsOptional()
-  @Matches(/^\d{2}:\d{2}:\d{2}$/, { message: "O campo 'Hora de término' deve estar no formato 'HH:mm:ss'" })
+  @Matches(/^\d{2}:\d{2}:\d{2}$/, {
+    message: "O campo 'Hora de término' deve estar no formato 'HH:mm:ss'",
+  })
   finalized_at: string;
 }

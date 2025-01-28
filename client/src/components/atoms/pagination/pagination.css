@@ -1,0 +1,10 @@
+#pagination button {
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+}
+#pagination span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
