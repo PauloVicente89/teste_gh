@@ -24,7 +24,7 @@ export class ActivityController {
   }
 
   @Get()
-  async findAll(@Query() filters: any): Promise<{ activities: Activities[]; count: number }> {
+  async findAll(@Query() filters: any): Promise<{ data: Activities[]; count: number }> {
     try {
       return await this.activityService.findAll(filters);
     } catch {

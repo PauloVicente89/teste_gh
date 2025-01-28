@@ -16,3 +16,12 @@ model Activities {
 
   @@map("activities")
 }
+
+model Reports {
+  id  String @id @default(uuid())
+  date  DateTime @db.Date
+  hours  String
+
+  @@map("reports")
+}
+

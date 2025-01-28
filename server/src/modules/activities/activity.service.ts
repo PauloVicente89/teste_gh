@@ -13,7 +13,7 @@ export class ActivityService {
     return await this.activityRepository.create(body);
   }
 
-  async findAll(filters: any): Promise<{ activities: Activities[]; count: number }> {
+  async findAll(filters: any): Promise<{ data: Activities[]; count: number }> {
     const query: Activities[] = await this.activityRepository.findAll({
       pagination: {
         page: filters?.page || 1,
@@ -22,8 +22,8 @@ export class ActivityService {
       criteria: filters,
     });
     const count: number = query.length;
-    const activities = query.map((activity: Activities) => new ActivityEntity(activity));
-    return { activities, count };
+    const data = query.map((activity: Activities) => new ActivityEntity(activity));
+    return { data, count };
   }
 
   async update(id: string, body: UpdateActivityDto): Promise<Activities> {
