@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Activities } from '@prisma/client';
+import { FilterProps } from 'src/utils/types/filters.props';
 import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dtos/create-activity.dto';
 import { UpdateActivityDto } from './dtos/update-activity.dto';
@@ -25,7 +26,7 @@ export class ActivityController {
 
   @Get()
   async findAll(
-    @Query() filters: any,
+    @Query() filters: FilterProps,
   ): Promise<{ data: Activities[]; count: number }> {
     try {
       return await this.activityService.findAll(filters);
