@@ -5,7 +5,9 @@
 <h2>INSTALAÇÃO</h2>
 
 *Necessário configurar o arquivo .env com base no .env-example*
+
 git clone "https://github.com/PauloVicente89/teste_gh"
+
 API
 ```bash
 $ cd server
